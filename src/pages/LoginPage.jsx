@@ -44,45 +44,90 @@ function LoginPage() {
         }
     };
 
-    return (
-        <div>
+    // return (
+    //     <div>
 
-            <h1>Login</h1>
+    //         <h1>Login</h1>
 
-            <form onSubmit={handleLogin}>
+    //         <form onSubmit={handleLogin}>
 
-                <input
-                    type="email"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) =>
-                        setEmail(e.target.value)
-                    }
-                />
+    //             <input
+    //                 type="email"
+    //                 placeholder="Email"
+    //                 value={email}
+    //                 onChange={(e) =>
+    //                     setEmail(e.target.value)
+    //                 }
+    //             />
 
-                <br />
+    //             <br />
 
-                <input
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) =>
-                        setPassword(
-                            e.target.value
-                        )
-                    }
-                />
+    //             <input
+    //                 type="password"
+    //                 placeholder="Password"
+    //                 value={password}
+    //                 onChange={(e) =>
+    //                     setPassword(
+    //                         e.target.value
+    //                     )
+    //                 }
+    //             />
 
-                <br />
+    //             <br />
 
-                <button type="submit">
-                    Login
-                </button>
+    //             <button type="submit">
+    //                 Login
+    //             </button>
 
-            </form>
+    //         </form>
 
-        </div>
-    );
+    //     </div>
+    // );
+
+return (
+
+    <div className="min-h-screen flex items-center justify-center bg-slate-100">
+
+        <form
+            onSubmit={handleLogin}
+            className="bg-white p-8 rounded-xl shadow-lg w-96"
+        >
+
+            <h1 className="text-3xl font-bold text-center mb-6">
+                RoomieSplit
+            </h1>
+
+            <input
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) =>
+                    setEmail(e.target.value)
+                }
+                className="w-full border rounded p-3 mb-4"
+            />
+
+            <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) =>
+                    setPassword(e.target.value)
+                }
+                className="w-full border rounded p-3 mb-4"
+            />
+
+            <button
+                type="submit"
+                className="w-full bg-blue-600 text-white p-3 rounded hover:bg-blue-700"
+            >
+                Login
+            </button>
+
+        </form>
+
+    </div>
+);
 }
 
 export default LoginPage;

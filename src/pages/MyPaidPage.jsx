@@ -1,18 +1,14 @@
-import { useEffect, useState }
-from "react";
+import { useEffect, useState } from "react";
 
-import MainLayout
-from "../layouts/MainLayout";
+import MainLayout from "../layouts/MainLayout";
 
 import {
     getMyPaid
-}
-from "../api/expenseApi";
+} from "../api/expenseApi";
 
 function MyPaidPage() {
 
-    const [paid,
-        setPaid] =
+    const [paid, setPaid] =
         useState([]);
 
     useEffect(() => {
@@ -21,60 +17,104 @@ function MyPaidPage() {
 
     }, []);
 
-    const loadPaid =
-        async () => {
+    const loadPaid = async () => {
 
-            const data =
-                await getMyPaid();
+        const data =
+            await getMyPaid();
 
-            setPaid(data);
-        };
+        setPaid(data);
+    };
 
     return (
 
         <MainLayout>
 
-            <h1>My Paid Expenses</h1>
+            <div className="max-w-6xl mx-auto">
 
-            {
-                paid.map(
-                    expense => (
+                <h1 className="text-3xl font-bold mb-6">
+                    My Paid Expenses
+                </h1>
+
+                <div className="space-y-4">
+
+                    {paid.map((expense) => (
 
                         <div
-                            key={
-                                expense.expenseId
-                            }
-                            style={{
-                                border:
-                                    "1px solid #ddd",
-                                padding:
-                                    "1rem",
-                                marginBottom:
-                                    "1rem"
-                            }}
+                            key={expense.expenseId}
+                            className="
+                                bg-white
+                                rounded-xl
+                                shadow-md
+                                p-5
+                            "
                         >
 
-                            <h3>
-                                {
-                                    expense.expenseTitle
-                                }
-                            </h3>
+                            <div className="flex justify-between items-center">
 
-                            <p>
-                                Paid To:
-                                {" "}
-                                {expense.paidTo}
-                            </p>
+                                <div>
 
-                            <p>
-                                ₹
-                                {expense.amount}
-                            </p>
+                                    <h3 className="text-lg font-semibold">
+                                        {expense.expenseTitle}
+                                    </h3>
+
+                                    <p className="text-gray-500 mt-1">
+                                        Paid To {expense.paidTo}
+                                    </p>
+
+                                </div>
+
+                                <div className="text-right">
+
+                                    <p className="
+                                        text-2xl
+                                        font-bold
+                                        text-green-600
+                                    ">
+                                        ₹{expense.amount}
+                                    </p>
+
+                                    <span
+                                        className="
+                                            inline-block
+                                            mt-2
+                                            bg-green-100
+                                            text-green-700
+                                            px-3
+                                            py-1
+                                            rounded-full
+                                            text-sm
+                                            font-medium
+                                        "
+                                    >
+                                        PAID
+                                    </span>
+
+                                </div>
+
+                            </div>
 
                         </div>
-                    )
-                )
-            }
+
+                    ))}
+
+                    {paid.length === 0 && (
+
+                        <div className="
+                            bg-white
+                            rounded-xl
+                            shadow-md
+                            p-10
+                            text-center
+                            text-gray-500
+                        ">
+                            No settled expenses yet.
+                        </div>
+
+                    )}
+
+                </div>
+
+            </div>
 
         </MainLayout>
     );

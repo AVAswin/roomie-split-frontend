@@ -1,21 +1,13 @@
 import Navbar from "../components/Navbar";
 
 function MainLayout({ children }) {
-
     return (
-
-        <div>
-
+        <div className="min-h-screen bg-slate-100">
             <Navbar />
 
-            <div
-                style={{
-                    padding: "2rem"
-                }}
-            >
+            <main className="p-6">
                 {children}
-            </div>
-
+            </main>
         </div>
     );
 }

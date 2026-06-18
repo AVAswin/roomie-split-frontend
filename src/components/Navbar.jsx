@@ -1,8 +1,21 @@
-import { useNavigate } from "react-router-dom";
+import {
+    NavLink,
+    useNavigate
+} from "react-router-dom";
+
+import { useEffect, useState }
+from "react";
+
+import {
+    getUnreadCount
+} from "../api/notificationApi";
 
 function Navbar() {
 
-    const navigate = useNavigate();
+    const navigate =
+        useNavigate();
+
+    const [unreadCount, setUnreadCount] = useState(0);
 
     const handleLogout = () => {
 
@@ -13,60 +26,136 @@ function Navbar() {
         navigate("/");
     };
 
+    useEffect(() => {
+
+    loadUnreadCount();
+
+}, []);
+
+const loadUnreadCount =
+    async () => {
+
+        try {
+
+            const count =
+                await getUnreadCount();
+
+            setUnreadCount(count);
+
+        } catch (error) {
+
+            console.error(error);
+        }
+    };
+
+    const navClass =
+        ({ isActive }) =>
+            isActive
+                ? "text-blue-600 font-semibold"
+                : "text-gray-600 hover:text-blue-600";
+
     return (
 
         <nav
-            style={{
-                display: "flex",
-                justifyContent: "space-between",
-                padding: "1rem",
-                borderBottom: "1px solid #ddd"
-            }}
+            className="
+                bg-white
+                shadow
+                px-8
+                py-4
+                flex
+                justify-between
+                items-center
+            "
         >
 
-            <h2>RoomieSplit</h2>
+            <h1
+                className="
+                    text-2xl
+                    font-bold
+                    text-blue-600
+                "
+            >
+                RoomieSplit
+            </h1>
 
-            <div>
+            <div
+                className="
+                    flex
+                    items-center
+                    gap-6
+                "
+            >
 
-                <button
-                    onClick={() =>
-                        navigate("/notifications")
-                    }
+                <NavLink
+                    to="/dashboard"
+                    className={navClass}
                 >
+                    Dashboard
+                </NavLink>
+
+                <NavLink
+                    to="/expenses"
+                    className={navClass}
+                >
+                    Expenses
+                </NavLink>
+
+                <NavLink
+                    to="/my-dues"
+                    className={navClass}
+                >
+                    My Dues
+                </NavLink>
+
+                <NavLink
+                    to="/my-paid"
+                    className={navClass}
+                >
+                    My Paid
+                </NavLink>
+
+                <NavLink
+                    to="/notifications"
+                    className="relative"
+                >
+
                     🔔
-                </button>
+
+                    {
+                        unreadCount > 0 && (
+
+                            <span
+                                className="
+                                    absolute
+                                    -top-2
+                                    -right-3
+                                    bg-red-500
+                                    text-white
+                                    text-xs
+                                    rounded-full
+                                    px-2
+                                "
+                            >
+                                {unreadCount}
+                            </span>
+
+                        )
+                    }
+
+                </NavLink>
 
                 <button
                     onClick={handleLogout}
-                    style={{
-                        marginLeft: "1rem"
-                    }}
+                    className="
+                        bg-red-500
+                        hover:bg-red-600
+                        text-white
+                        px-4
+                        py-2
+                        rounded-lg
+                    "
                 >
                     Logout
-                </button>
-
-                <button
-                    onClick={() =>
-                        navigate("/expenses")
-                    }
-                >
-                    Expenses
-                </button>
-
-                <button
-                    onClick={() =>
-                        navigate("/my-dues")
-                    }
-                >
-                    My Dues
-                </button>
-
-                <button
-                    onClick={() =>
-                        navigate("/my-paid")
-                    }
-                >
-                    My Paid
                 </button>
 
             </div>

@@ -1,29 +1,24 @@
-import { useEffect, useState }
-from "react";
+import { useEffect, useState } from "react";
 
-import MainLayout
-from "../layouts/MainLayout";
+import MainLayout from "../layouts/MainLayout";
 
 import {
     getMyDues,
     settleExpense
-}
-from "../api/expenseApi";
+} from "../api/expenseApi";
 
 function MyDuesPage() {
 
-    const [dues,
-        setDues] =
+    const [dues, setDues] =
         useState([]);
 
-    const loadDues =
-        async () => {
+    const loadDues = async () => {
 
-            const data =
-                await getMyDues();
+        const data =
+            await getMyDues();
 
-            setDues(data);
-        };
+        setDues(data);
+    };
 
     useEffect(() => {
 
@@ -31,71 +26,123 @@ function MyDuesPage() {
 
     }, []);
 
-    const handleSettle =
-        async (expenseId) => {
+   const handleSettle =
+    async (expenseId) => {
+
+        try {
 
             await settleExpense(
                 expenseId
             );
 
             loadDues();
-        };
+
+            toast.success(
+                "Expense settled successfully!"
+            );
+
+        } catch (error) {
+
+            toast.error(
+                "Failed to settle expense"
+            );
+        }
+    };
 
     return (
 
         <MainLayout>
 
-            <h1>My Dues</h1>
+            <div className="max-w-6xl mx-auto">
 
-            {
-                dues.map(
-                    due => (
+                <h1 className="text-3xl font-bold mb-6">
+                    My Dues
+                </h1>
+
+                <div className="space-y-4">
+
+                    {dues.map((due) => (
 
                         <div
-                            key={
-                                due.expenseId // this should be unique
-                            }
-                            style={{
-                                border:
-                                    "1px solid #ddd",
-                                padding:
-                                    "1rem",
-                                marginBottom:
-                                    "1rem"
-                            }}
+                            key={due.expenseId}
+                            className="
+                                bg-white
+                                rounded-xl
+                                shadow-md
+                                p-5
+                            "
                         >
 
-                            <h3>
-                                {
-                                    due.expenseTitle
-                                }
-                            </h3>
+                            <div className="flex justify-between items-center">
 
-                            <p>
-                                Owed To:
-                                {" "}
-                                {due.owedTo}
-                            </p>
+                                <div>
 
-                            <p>
-                                ₹
-                                {due.amount}
-                            </p>
+                                    <h3 className="text-lg font-semibold">
+                                        {due.expenseTitle}
+                                    </h3>
 
-                            <button
-                                onClick={() =>
-                                    handleSettle(
-                                        due.expenseId
-                                    )
-                                }
-                            >
-                                Settle
-                            </button>
+                                    <p className="text-gray-500 mt-1">
+                                        Owed to {due.owedTo}
+                                    </p>
+
+                                </div>
+
+                                <div className="text-right">
+
+                                    <p className="
+                                        text-2xl
+                                        font-bold
+                                        text-red-500
+                                    ">
+                                        ₹{due.amount}
+                                    </p>
+
+                                    <button
+                                        onClick={() =>
+                                            handleSettle(
+                                                due.expenseId
+                                            )
+                                        }
+                                        className="
+                                            mt-2
+                                            bg-green-600
+                                            hover:bg-green-700
+                                            text-white
+                                            px-4
+                                            py-2
+                                            rounded-lg
+                                            transition
+                                        "
+                                    >
+                                        Settle
+                                    </button>
+
+                                </div>
+
+                            </div>
 
                         </div>
-                    )
-                )
-            }
+
+                    ))}
+
+                    {dues.length === 0 && (
+
+                        <div className="
+                            bg-white
+                            rounded-xl
+                            shadow-md
+                            p-10
+                            text-center
+                            text-gray-500
+                        ">
+                            🎉 No pending dues!
+                        </div>
+
+                    )}
+
+                </div>
+
+            </div>
 
         </MainLayout>
     );
