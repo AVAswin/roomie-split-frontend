@@ -94,6 +94,13 @@ const loadUnreadCount =
                 </NavLink>
 
                 <NavLink
+                    to="/house"
+                    className={navClass}
+                >
+                    House
+                </NavLink>
+
+                <NavLink
                     to="/expenses"
                     className={navClass}
                 >

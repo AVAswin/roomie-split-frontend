@@ -11,6 +11,7 @@ import MyDuesPage from "../pages/MyDuesPage";
 import MyPaidPage from "../pages/MyPaidPage";
 import ProtectedRoute from "./ProtectedRoute";
 import NotificationsPage from "../pages/NotificationsPage";
+import HousePage from "../pages/HousePage";
 
 function AppRoutes() {
 
@@ -64,6 +65,15 @@ function AppRoutes() {
                     element={
                         <ProtectedRoute>
                             <NotificationsPage />
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="/house"
+                    element={
+                        <ProtectedRoute>
+                            <HousePage />
                         </ProtectedRoute>
                     }
                 />
