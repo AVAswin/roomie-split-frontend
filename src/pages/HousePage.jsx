@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 
 import MainLayout from "../layouts/MainLayout";
 
-import { getMyHouse }
-from "../api/houseApi";
+import { getMyHouse } from "../api/houseApi";
+import { toast } from "react-toastify";
 
 function HousePage() {
 
@@ -15,6 +15,28 @@ function HousePage() {
         loadHouse();
 
     }, []);
+
+    const copyInviteCode =
+    async () => {
+
+        try {
+
+            await navigator.clipboard
+                .writeText(
+                    house.inviteCode
+                );
+
+            toast.success(
+                "Invite code copied!"
+            );
+
+        } catch (error) {
+
+            toast.error(
+                "Failed to copy code"
+            );
+        }
+    };
 
     const loadHouse = async () => {
 
@@ -113,11 +135,7 @@ function HousePage() {
                         </div>
 
                         <button
-                            onClick={() =>
-                                navigator.clipboard.writeText(
-                                    house.inviteCode
-                                )
-                            }
+                            onClick={copyInviteCode}
                             className="
                                 ml-3
                                 bg-slate-200

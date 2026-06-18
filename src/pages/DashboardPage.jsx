@@ -2,6 +2,15 @@ import { useEffect, useState } from "react";
 import api from "../api/axios";
 import MainLayout from "../layouts/MainLayout";
 import SummaryCard from "../components/SummaryCard";
+import Loader from "../components/Loader";
+import {
+    PieChart,
+    Pie,
+    Cell,
+    Tooltip,
+    ResponsiveContainer,
+    Legend
+} from "recharts";
 
 function DashboardPage() {
 
@@ -25,8 +34,25 @@ function DashboardPage() {
     };
 
     if (!summary) {
-        return <h2>Loading...</h2>;
+        return (
+            <MainLayout>
+                <Loader />
+            </MainLayout>
+        );
     }
+
+    const financeData = [
+        {
+            name: "Pending Dues",
+            value: summary.pendingDues
+        },
+        {
+            name: "Settled Amount",
+            value:
+                summary.totalExpenseAmount -
+                summary.pendingDues
+        }
+    ];
 
     return (
 
@@ -60,7 +86,55 @@ function DashboardPage() {
                 value={`₹${summary.pendingDues}`}
             />
 
-        </div>
+            </div>
+
+            <div className="
+                bg-white
+                rounded-xl
+                shadow-md
+                p-6
+                mt-6
+            ">
+
+                <h2 className="
+                    text-xl
+                    font-semibold
+                    mb-4
+                ">
+                    Financial Overview
+                </h2>
+
+                <div className="h-80">
+
+                    <ResponsiveContainer>
+
+                        <PieChart>
+
+                            <Pie
+                                data={financeData}
+                                dataKey="value"
+                                nameKey="name"
+                                outerRadius={100}
+                                label
+                            >
+
+                                <Cell fill="#ef4444" />
+
+                                <Cell fill="#22c55e" />
+
+                            </Pie>
+
+                            <Tooltip />
+
+                            <Legend />
+
+                        </PieChart>
+
+                    </ResponsiveContainer>
+
+                </div>
+
+            </div>
 
         </MainLayout>
     );

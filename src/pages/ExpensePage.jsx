@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import MainLayout from "../layouts/MainLayout";
 import { getExpenses, createExpense } from "../api/expenseApi";
+import { toast } from "react-toastify";
 
 function ExpensesPage() {
 
@@ -23,13 +24,26 @@ function ExpensesPage() {
 
         e.preventDefault();
 
-        await createExpense({
-            title,
-            description,
-            amount
-        });
+        try {
 
-        loadExpenses();
+            await createExpense({
+                title,
+                description,
+                amount
+            });
+
+            toast.success(
+                "Expense created successfully!"
+            );
+
+            loadExpenses();
+
+        } catch (error) {
+
+            toast.error(
+                "Failed to create expense"
+            );
+        }
 
         setTitle("");
         setDescription("");

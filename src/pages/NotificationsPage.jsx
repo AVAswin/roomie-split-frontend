@@ -9,6 +9,7 @@ import {
     markAsRead
 }
 from "../api/notificationApi";
+import { toast } from "react-toastify";
 
 function NotificationsPage() {
 
@@ -32,12 +33,25 @@ function NotificationsPage() {
         };
 
     const handleRead =
-        async (id) => {
+    async (id) => {
+
+        try {
 
             await markAsRead(id);
 
+            toast.success(
+                "Notification marked as read"
+            );
+
             loadNotifications();
-        };
+
+        } catch (error) {
+
+            toast.error(
+                "Failed to mark notification"
+            );
+        }
+    };
 
     return (
 
