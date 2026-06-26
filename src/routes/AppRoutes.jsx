@@ -12,6 +12,8 @@ import MyPaidPage from "../pages/MyPaidPage";
 import ProtectedRoute from "./ProtectedRoute";
 import NotificationsPage from "../pages/NotificationsPage";
 import HousePage from "../pages/HousePage";
+import RegisterPage from "../pages/RegisterPage";
+import ProtectedLayout from "./ProtectedLayout";
 
 function AppRoutes() {
 
@@ -22,60 +24,53 @@ function AppRoutes() {
             <Routes>
 
                 <Route
-                    path="/"
-                    element={<LoginPage />}
-                />
-
-                <Route
-                    path="/dashboard"
-                    element={
-                        <DashboardPage />
-                    }
-                />
-
-                <Route
-                    path="/expenses"
                     element={
                         <ProtectedRoute>
-                            <ExpensePage />
+                            <ProtectedLayout />
                         </ProtectedRoute>
                     }
+                >
+
+                    <Route
+                        path="/dashboard"
+                        element={<DashboardPage />}
+                    />
+
+                    <Route
+                        path="/expenses"
+                        element={<ExpensePage />}
+                    />
+
+                    <Route
+                        path="/house"
+                        element={<HousePage />}
+                    />
+
+                    <Route
+                        path="/my-dues"
+                        element={<MyDuesPage />}
+                    />
+
+                    <Route
+                        path="/my-paid"
+                        element={<MyPaidPage />}
+                    />
+
+                    <Route
+                        path="/notifications"
+                        element={<NotificationsPage />}
+                    />
+
+                </Route>
+
+                <Route
+                        path="/login"
+                        element={<LoginPage />}
                 />
 
                 <Route
-                    path="/my-dues"
-                    element={
-                        <ProtectedRoute>
-                            <MyDuesPage />
-                        </ProtectedRoute>
-                    }
-                />
-
-                <Route
-                    path="/my-paid"
-                    element={
-                        <ProtectedRoute>
-                            <MyPaidPage />
-                        </ProtectedRoute>
-                    }
-                />
-
-                <Route
-                    path="/notifications"
-                    element={
-                        <ProtectedRoute>
-                            <NotificationsPage />
-                        </ProtectedRoute>
-                    }
-                />
-
-                <Route
-                    path="/house"
-                    element={
-                        <ProtectedRoute>
-                            <HousePage />
-                        </ProtectedRoute>
-                    }
+                        path="/register"
+                        element={<RegisterPage />}
                 />
 
             </Routes>

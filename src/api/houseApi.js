@@ -17,3 +17,26 @@ export const getHouseMembers = async () => {
 
     return response.data.data;
 };
+
+export const createHouse = async (name) => {
+
+    const response =
+        await api.post(
+            "/houses",
+            {
+                name
+            }
+        );
+
+    return response.data.data;
+};
+
+export const joinHouse = async (inviteCode) => {
+
+    await api.post(
+        "/houses/join",
+        {
+            inviteCode
+        }
+    );
+};

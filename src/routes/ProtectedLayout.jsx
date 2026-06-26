@@ -1,15 +1,22 @@
+import { Outlet } from "react-router-dom";
 import Navbar from "../components/Navbar";
 
-function MainLayout({ children }) {
+function ProtectedLayout() {
 
     return (
+
         <div className="min-h-screen bg-slate-100">
 
+            <Navbar />
+
             <main className="p-6">
-                {children}
+                <Outlet />
             </main>
+
         </div>
+
     );
+
 }
 
-export default MainLayout;
+export default ProtectedLayout;

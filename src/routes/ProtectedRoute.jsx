@@ -6,7 +6,7 @@ function ProtectedRoute({ children }) {
         localStorage.getItem("accessToken");
 
     if (!token) {
-        return <Navigate to="/" />;
+        return <Navigate to="/login" />;
     }
 
     return children;

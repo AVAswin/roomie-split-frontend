@@ -23,14 +23,14 @@ function Navbar() {
             "accessToken"
         );
 
-        navigate("/");
+        navigate("/login");
     };
 
     useEffect(() => {
+        console.log("Navbar Mounted");
 
-    loadUnreadCount();
-
-}, []);
+        loadUnreadCount();
+    }, []);
 
 const loadUnreadCount =
     async () => {

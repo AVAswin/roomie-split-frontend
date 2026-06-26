@@ -14,7 +14,7 @@ function Loader() {
                 border-b-2
                 border-blue-600
             ">
-                loading...
+        
             </div>
         </div>
     );
