@@ -2,6 +2,7 @@ import {
     BrowserRouter,
     Routes,
     Route,
+    Navigate,
 } from "react-router-dom";
 
 import LoginPage from "../pages/LoginPage";
@@ -71,6 +72,11 @@ function AppRoutes() {
                 <Route
                         path="/register"
                         element={<RegisterPage />}
+                />
+
+                <Route
+                    path="/"
+                    element={<Navigate to="/login" replace />}
                 />
 
             </Routes>
